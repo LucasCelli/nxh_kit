@@ -69,7 +69,3 @@ Saída padrão:
 
 - Alguns comandos podem requerer reinício do sistema para efeito completo (ex.: Winsock/IP reset).
 - Use em ambiente confiável e, de preferência, com backup/ponto de restauração.
-
-## Licença
-
-Defina a licença desejada (ex.: MIT) antes de publicar.
