@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window x:Class="NHX_Kit.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="NHX_Kit"
+        Icon="pack://application:,,,/assets/nhx-kit.ico"
+        Height="660" Width="980"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        FontFamily="Segoe UI">
+
+    <Window.Resources>
+
+        <Style x:Key="SideBtn" TargetType="Button">
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Padding" Value="14,0"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Foreground" Value="#CCFFFFFF"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="Bd" Background="{TemplateBinding Background}" CornerRadius="8" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#22FFFFFF"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#33FFFFFF"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Foreground" Value="#55FFFFFF"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="CatExpander" TargetType="Expander">
+            <Setter Property="Foreground" Value="#EAF3FF"/>
+            <Setter Property="Margin" Value="0,2,0,8"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Expander">
+                        <StackPanel>
+                            <ToggleButton Name="HeaderSite"
+                                          Content="{TemplateBinding Header}"
+                                          IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}"
+                                          Background="#223E45F8"
+                                          BorderBrush="#663E45F8"
+                                          BorderThickness="1"
+                                          Foreground="{TemplateBinding Foreground}"
+                                          FontSize="11.5"
+                                          FontWeight="Bold"
+                                          Padding="12,10"
+                                          MinHeight="42"
+                                          HorizontalContentAlignment="Left"
+                                          Cursor="Hand">
+                                <ToggleButton.Template>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <Border Name="Bd" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="8">
+                                            <DockPanel LastChildFill="True">
+                                                <TextBlock Name="Glyph" Text="▸" Margin="0,0,8,0" VerticalAlignment="Center" Foreground="#CFE6FF"/>
+                                                <ContentPresenter VerticalAlignment="Center"/>
+                                            </DockPanel>
+                                        </Border>
+                                            <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="Bd" Property="Background" Value="#333E45F8"/>
+                                            </Trigger>
+                                            <Trigger Property="IsChecked" Value="True">
+                                                <Setter TargetName="Glyph" Property="Text" Value="▾"/>
+                                                <Setter TargetName="Bd" Property="Background" Value="#3D3E45F8"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </ToggleButton.Template>
+                            </ToggleButton>
+                            <Border Name="ExpandSite" Visibility="Collapsed" Margin="0,6,0,0">
+                                <ContentPresenter/>
+                            </Border>
+                        </StackPanel>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsExpanded" Value="True">
+                                <Setter TargetName="ExpandSite" Property="Visibility" Value="Visible"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="RunBtn" TargetType="Button">
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Padding" Value="24,0"/>
+            <Setter Property="Background" Value="#0078D4"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="Bd" Background="{TemplateBinding Background}" CornerRadius="8" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#1084D8"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#006CBF"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="Bd" Property="Background" Value="#555555"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="CloseBtn" TargetType="Button">
+            <Setter Property="Width" Value="32"/>
+            <Setter Property="Height" Value="32"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Foreground" Value="#99FFFFFF"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="Bd" Background="{TemplateBinding Background}" CornerRadius="6">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#AAE81123"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="SmallBtn" TargetType="Button">
+            <Setter Property="Height" Value="24"/>
+            <Setter Property="Padding" Value="12,0"/>
+            <Setter Property="Background" Value="#18FFFFFF"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#22FFFFFF"/>
+            <Setter Property="Foreground" Value="#88FFFFFF"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="Bd" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="6" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#28FFFFFF"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Window.Resources>
+
+    <Border Background="#CC0F0F0F" CornerRadius="14" BorderBrush="#33FFFFFF" BorderThickness="1">
+        <Border.Effect>
+            <DropShadowEffect Color="Black" BlurRadius="40" ShadowDepth="4" Opacity="0.7"/>
+        </Border.Effect>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="240"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Sidebar -->
+            <Border Background="#CC000000" CornerRadius="14,0,0,14" BorderBrush="#663E45F8" BorderThickness="0,0,1,0" ClipToBounds="True">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid IsHitTestVisible="False">
+                        <Rectangle Fill="#66000000"/>
+                    </Grid>
+
+                    <StackPanel Grid.Row="0" Margin="18,16,18,0">
+                        <TextBlock Text="&#9881;" FontSize="28" Foreground="#FF3E45F8" Margin="0,0,0,6"/>
+                        <TextBlock Text="NHX_Kit" FontSize="17" FontWeight="Bold" Foreground="White"/>
+                        <TextBlock Text="Toolkit de Comandos de Sistema" FontSize="11" Foreground="#A9D8FF" Margin="0,2,0,12"/>
+                        <Separator Background="#663E45F8"/>
+                    </StackPanel>
+
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Margin="0,8,0,0">
+                        <StackPanel Margin="14,0,14,0">
+                            <Expander Style="{StaticResource CatExpander}" Header="R E D E" IsExpanded="True">
+                                <StackPanel Margin="8,0,0,0">
+                                    <Button Style="{StaticResource SideBtn}" Content="Executar Cadeia de Rede" Tag="netchain" Click="SideButton_Click" Margin="0,1"/>
+                                    <Button Style="{StaticResource SideBtn}" Content="Flush DNS" Tag="dns" Click="SideButton_Click" Margin="0,1"/>
+                                    <Button Style="{StaticResource SideBtn}" Content="Release IP" Tag="release" Click="SideButton_Click" Margin="0,1"/>
+                                    <Button Style="{StaticResource SideBtn}" Content="Renew IP" Tag="renew" Click="SideButton_Click" Margin="0,1"/>
+                                    <Button Style="{StaticResource SideBtn}" Content="Reset Winsock" Tag="winsock" Click="SideButton_Click" Margin="0,1"/>
+                                    <Button Style="{StaticResource SideBtn}" Content="Reset Protocolo IP" Tag="ipreset" Click="SideButton_Click" Margin="0,1"/>
+                                    <Button Style="{StaticResource SideBtn}" Content="Resetar Proxy WinHTTP" Tag="proxy" Click="SideButton_Click" Margin="0,1"/>
+                                    <Button Style="{StaticResource SideBtn}" Content="Diagnostico (ipconfig /all)" Tag="netinfo" Click="SideButton_Click" Margin="0,1"/>
+                                </StackPanel>
+                            </Expander>
+
+                            <Expander Style="{StaticResource CatExpander}" Header="L I M P E Z A" IsExpanded="False">
+                                <StackPanel Margin="8,0,0,0">
+                                    <Button Style="{StaticResource SideBtn}" Content="Limpeza Temp + Prefetch" Tag="deepclean" Click="SideButton_Click" Margin="0,1"/>
+                                    <Button Style="{StaticResource SideBtn}" Content="Arquivos Temporarios" Tag="temp" Click="SideButton_Click" Margin="0,1"/>
+                                    <Button Style="{StaticResource SideBtn}" Content="Esvaziar Lixeira" Tag="lixo" Click="SideButton_Click" Margin="0,1"/>
+                                    <Button Style="{StaticResource SideBtn}" Content="Cache de Icones" Tag="icone" Click="SideButton_Click" Margin="0,1"/>
+                                    <Button Style="{StaticResource SideBtn}" Content="Cache de Miniaturas" Tag="mini" Click="SideButton_Click" Margin="0,1"/>
+                                </StackPanel>
+                            </Expander>
+
+                            <Expander Style="{StaticResource CatExpander}" Header="S I S T E M A" IsExpanded="False">
+                                <StackPanel Margin="8,0,0,0">
+                                    <Button Style="{StaticResource SideBtn}" Content="Resetar Windows Update" Tag="wu" Click="SideButton_Click" Margin="0,1"/>
+                                    <Button Style="{StaticResource SideBtn}" Content="Verificar Arquivos SFC" Tag="sfc" Click="SideButton_Click" Margin="0,1"/>
+                                    <Button Style="{StaticResource SideBtn}" Content="CHKDSK Somente Leitura" Tag="disk" Click="SideButton_Click" Margin="0,1"/>
+                                    <Button Style="{StaticResource SideBtn}" Content="DISM CheckHealth" Tag="dism" Click="SideButton_Click" Margin="0,1"/>
+                                </StackPanel>
+                            </Expander>
+
+                            <Expander Style="{StaticResource CatExpander}" Header="D E S E M P E N H O" IsExpanded="False">
+                                <StackPanel Margin="8,0,0,0">
+                                    <Button Style="{StaticResource SideBtn}" Content="Liberar Memoria (GC)" Tag="mem" Click="SideButton_Click" Margin="0,1"/>
+                                </StackPanel>
+                            </Expander>
+
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <StackPanel Grid.Row="2" Margin="14,8,14,12">
+                        <Separator Background="#663E45F8" Margin="0,0,0,8"/>
+                        <TextBlock Text="Lucas Celli  2026" FontSize="10" Foreground="#A9D8FF" Margin="4,0"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- Main -->
+            <Grid Grid.Column="1" Margin="26,20,26,18">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <DockPanel Grid.Row="0" Margin="0,0,0,16" LastChildFill="False" MouseDown="TopBar_MouseDown">
+                    <StackPanel DockPanel.Dock="Left">
+                        <TextBlock x:Name="PageTitle" Text="Bem-vindo" FontSize="21" FontWeight="SemiBold" Foreground="White"/>
+                        <TextBlock x:Name="PageSubtitle" Text="Selecione uma acao na barra lateral." FontSize="12" Foreground="#77FFFFFF" Margin="0,3,0,0"/>
+                    </StackPanel>
+                    <Button DockPanel.Dock="Right" x:Name="BtnClose" Content="&#10005;" Style="{StaticResource CloseBtn}"
+                            VerticalAlignment="Top" Click="BtnClose_Click"/>
+                </DockPanel>
+
+                <Border Grid.Row="1" x:Name="StatusCard"
+                        Background="#16FFFFFF" CornerRadius="10" BorderBrush="#20FFFFFF" BorderThickness="1"
+                        Padding="18,13" Margin="0,0,0,12" Visibility="Collapsed">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel>
+                            <TextBlock x:Name="StatusTitle" Text="" FontSize="13" FontWeight="SemiBold" Foreground="White"/>
+                            <TextBlock x:Name="StatusDesc"  Text="" FontSize="11.5" Foreground="#88FFFFFF" Margin="0,3,0,0" TextWrapping="Wrap"/>
+                        </StackPanel>
+                        <Border Grid.Column="1" x:Name="BadgeBorder" Background="#220078D4" CornerRadius="6" Padding="12,5" VerticalAlignment="Center">
+                            <TextBlock x:Name="BadgeText" Text="PRONTO" FontSize="10" FontWeight="Bold" Foreground="#0078D4"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <ProgressBar Grid.Row="1" x:Name="ProgressBar"
+                             Height="3" Foreground="#0078D4" Background="#22FFFFFF"
+                             Margin="0,0,0,12" VerticalAlignment="Bottom" Visibility="Collapsed" IsIndeterminate="True"/>
+
+                <Border Grid.Row="2" Background="#0EFFFFFF" CornerRadius="10" BorderBrush="#18FFFFFF" BorderThickness="1">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <DockPanel Grid.Row="0" Margin="16,10,16,8" LastChildFill="False">
+                            <TextBlock Text="LOG DE ATIVIDADES" FontSize="9.5" FontWeight="Bold" Foreground="#44FFFFFF" VerticalAlignment="Center"/>
+                            <Button DockPanel.Dock="Right" x:Name="BtnClearLog" Content="Limpar" Style="{StaticResource SmallBtn}" Click="BtnClearLog_Click"/>
+                        </DockPanel>
+                        <Separator Grid.Row="0" Background="#12FFFFFF" Margin="0,34,0,0"/>
+
+                        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="16,6,16,12">
+                            <TextBox x:Name="LogText"
+                                     FontFamily="Consolas" FontSize="12"
+                                     Foreground="#CCFFFFFF" Background="Transparent"
+                                     BorderThickness="0"
+                                     IsReadOnly="True"
+                                     TextWrapping="Wrap"
+                                     AcceptsReturn="True"/>
+                        </ScrollViewer>
+                    </Grid>
+                </Border>
+
+                <DockPanel Grid.Row="3" Margin="0,14,0,0" LastChildFill="False">
+                    <Button DockPanel.Dock="Right" x:Name="BtnRun" Content="Executar" Style="{StaticResource RunBtn}" IsEnabled="False" Click="BtnRun_Click"/>
+                    <TextBlock x:Name="FooterText" Text="" FontSize="11" Foreground="#44FFFFFF" VerticalAlignment="Center"/>
+                </DockPanel>
+            </Grid>
+        </Grid>
+    </Border>
+</Window>

@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>NHX_Kit</AssemblyName>
+    <Product>NHX_Kit</Product>
+    <Title>NHX_Kit</Title>
+    <Description>Toolkit de Comandos de Sistema</Description>
+    <ApplicationIcon>assets\nhx-kit.ico</ApplicationIcon>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Resource Include="assets\nhx-kit.ico" />
+  </ItemGroup>
+</Project>
